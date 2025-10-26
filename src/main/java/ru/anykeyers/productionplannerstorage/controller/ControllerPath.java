@@ -11,5 +11,6 @@ final class ControllerPath {
 
     public static final String BASE = "/api";
     public static final String PRODUCTS = BASE + "/products";
+    public static final String PRODUCTION_PLANS = BASE + "/production-plans";
 
 }
