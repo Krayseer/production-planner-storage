@@ -1,10 +1,10 @@
 package ru.anykeyers.productionplannerstorage.controller.mapper;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
+import ru.anykeyers.productionplannerstorage.config.CentralMapperConfig;
 import ru.anykeyers.productionplannerstorage.controller.dto.ProductionPlanDto;
 import ru.anykeyers.productionplannerstorage.domain.ProductionPlan;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = { ProductionPlanMapper.class })
+@Mapper(config = CentralMapperConfig.class, uses = { ProductMapper.class })
 public interface ProductionPlanMapper extends BaseMapper<ProductionPlan, ProductionPlanDto> {
 }

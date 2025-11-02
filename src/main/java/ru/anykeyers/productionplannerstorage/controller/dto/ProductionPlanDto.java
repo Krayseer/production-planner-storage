@@ -6,12 +6,12 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record ProductionPlanDto(
-         Long id,
-         ProductDto product,
-         ProductionType productionType,
-         Integer quantity,
-         Integer periodMonths,
-         Integer priority,
-         LocalDate deadlineDate,
-         LocalDateTime createdAt
+        Long id,
+        ProductDto product,
+        ProductionType productionType,
+        Integer quantity,
+        Integer periodMonths,
+        Integer priority,
+        LocalDate deadlineDate,
+        LocalDateTime createdAt
 ) {}

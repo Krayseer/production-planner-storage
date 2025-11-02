@@ -1,11 +1,10 @@
 package ru.anykeyers.productionplannerstorage.controller.mapper;
 
-
 import org.mapstruct.Mapper;
-import org.mapstruct.MappingConstants;
+import ru.anykeyers.productionplannerstorage.config.CentralMapperConfig;
 import ru.anykeyers.productionplannerstorage.controller.dto.OptimizationParameterDto;
 import ru.anykeyers.productionplannerstorage.domain.OptimizationParameter;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
+@Mapper(config = CentralMapperConfig.class)
 public interface OptimizationParameterMapper extends BaseMapper<OptimizationParameter, OptimizationParameterDto> {
 }
