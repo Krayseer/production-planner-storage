@@ -13,6 +13,7 @@ final class ControllerPath {
     public static final String TEAMS = BASE + "/teams";
     public static final String PRODUCTS = BASE + "/products";
     public static final String PRODUCTION_PLANS = BASE + "/production-plans";
+    public static final String TEAM_PRODUCTIVITY = BASE + "/team-productivity";
     public static final String OPTIMIZATION_PARAMETERS = BASE + "/optimization-parameters";
 
 }
