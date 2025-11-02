@@ -3,6 +3,7 @@ package ru.anykeyers.productionplannerstorage.service.impl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import ru.anykeyers.productionplannerstorage.controller.dto.OptimizationParameterDto;
 import ru.anykeyers.productionplannerstorage.controller.mapper.OptimizationParameterMapper;
 import ru.anykeyers.productionplannerstorage.controller.request.OptimizationParameterDetails;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Slf4j
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class OptimizationParameterServiceImpl implements OptimizationParameterService {
 
