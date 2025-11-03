@@ -3,8 +3,8 @@ package ru.anykeyers.productionplannerstorage.controller.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.anykeyers.productionplannerstorage.controller.TeamApi;
-import ru.anykeyers.productionplannerstorage.controller.dto.TeamDto;
-import ru.anykeyers.productionplannerstorage.controller.request.TeamDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.TeamDto;
+import ru.anykeyers.productionplannerstorage.domain.request.TeamDetails;
 import ru.anykeyers.productionplannerstorage.service.TeamService;
 
 import java.util.List;

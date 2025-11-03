@@ -1,4 +1,4 @@
-package ru.anykeyers.productionplannerstorage.controller.request;
+package ru.anykeyers.productionplannerstorage.domain.request;
 
 import jakarta.validation.constraints.*;
 

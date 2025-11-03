@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.service;
 
-import ru.anykeyers.productionplannerstorage.controller.dto.ProductDto;
-import ru.anykeyers.productionplannerstorage.controller.request.ProductDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.ProductDto;
+import ru.anykeyers.productionplannerstorage.domain.request.ProductDetails;
 import ru.anykeyers.productionplannerstorage.exception.ProductNotFoundException;
 
 import java.util.List;

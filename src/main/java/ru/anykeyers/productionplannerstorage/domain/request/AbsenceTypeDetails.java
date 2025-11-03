@@ -1,4 +1,4 @@
-package ru.anykeyers.productionplannerstorage.controller.request;
+package ru.anykeyers.productionplannerstorage.domain.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;

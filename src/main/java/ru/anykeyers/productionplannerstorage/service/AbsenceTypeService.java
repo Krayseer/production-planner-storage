@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.service;
 
-import ru.anykeyers.productionplannerstorage.controller.dto.AbsenceTypeDto;
-import ru.anykeyers.productionplannerstorage.controller.request.AbsenceTypeDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.AbsenceTypeDto;
+import ru.anykeyers.productionplannerstorage.domain.request.AbsenceTypeDetails;
 import ru.anykeyers.productionplannerstorage.exception.AbsenceTypeNotFoundException;
 import ru.anykeyers.productionplannerstorage.exception.AbsenceTypeNotUniqueCodeException;
 

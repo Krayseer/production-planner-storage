@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.service;
 
-import ru.anykeyers.productionplannerstorage.controller.dto.TeamProductivityDto;
-import ru.anykeyers.productionplannerstorage.controller.request.TeamProductivityDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.TeamProductivityDto;
+import ru.anykeyers.productionplannerstorage.domain.request.TeamProductivityDetails;
 import ru.anykeyers.productionplannerstorage.exception.ProductNotFoundException;
 import ru.anykeyers.productionplannerstorage.exception.TeamNotFoundException;
 import ru.anykeyers.productionplannerstorage.exception.TeamProductivityNotFoundException;

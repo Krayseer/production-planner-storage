@@ -1,4 +1,4 @@
-package ru.anykeyers.productionplannerstorage.controller.dto;
+package ru.anykeyers.productionplannerstorage.domain.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

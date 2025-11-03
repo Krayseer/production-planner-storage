@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.service;
 
-import ru.anykeyers.productionplannerstorage.controller.dto.TeamDto;
-import ru.anykeyers.productionplannerstorage.controller.request.TeamDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.TeamDto;
+import ru.anykeyers.productionplannerstorage.domain.request.TeamDetails;
 
 import java.util.List;
 

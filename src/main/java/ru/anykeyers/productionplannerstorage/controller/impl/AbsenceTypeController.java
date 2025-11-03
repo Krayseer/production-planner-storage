@@ -3,8 +3,8 @@ package ru.anykeyers.productionplannerstorage.controller.impl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RestController;
 import ru.anykeyers.productionplannerstorage.controller.AbsenceTypeApi;
-import ru.anykeyers.productionplannerstorage.controller.dto.AbsenceTypeDto;
-import ru.anykeyers.productionplannerstorage.controller.request.AbsenceTypeDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.AbsenceTypeDto;
+import ru.anykeyers.productionplannerstorage.domain.request.AbsenceTypeDetails;
 import ru.anykeyers.productionplannerstorage.service.AbsenceTypeService;
 
 import java.util.List;

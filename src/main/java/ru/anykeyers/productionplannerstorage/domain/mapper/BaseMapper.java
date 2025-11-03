@@ -1,4 +1,4 @@
-package ru.anykeyers.productionplannerstorage.controller.mapper;
+package ru.anykeyers.productionplannerstorage.domain.mapper;
 
 import java.util.List;
 

@@ -10,8 +10,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.anykeyers.productionplannerstorage.controller.dto.EmployeeDto;
-import ru.anykeyers.productionplannerstorage.controller.request.EmployeeDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.EmployeeDto;
+import ru.anykeyers.productionplannerstorage.domain.request.EmployeeDetails;
 
 import java.util.List;
 

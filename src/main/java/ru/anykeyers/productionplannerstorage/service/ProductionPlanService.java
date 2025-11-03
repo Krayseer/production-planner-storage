@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.service;
 
-import ru.anykeyers.productionplannerstorage.controller.dto.ProductionPlanDto;
-import ru.anykeyers.productionplannerstorage.controller.request.ProductionPlanDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.ProductionPlanDto;
+import ru.anykeyers.productionplannerstorage.domain.request.ProductionPlanDetails;
 import ru.anykeyers.productionplannerstorage.exception.ProductNotFoundException;
 import ru.anykeyers.productionplannerstorage.exception.ProductionPlanNotFoundException;
 

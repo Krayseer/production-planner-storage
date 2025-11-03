@@ -9,8 +9,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.anykeyers.productionplannerstorage.controller.dto.AbsenceTypeDto;
-import ru.anykeyers.productionplannerstorage.controller.request.AbsenceTypeDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.AbsenceTypeDto;
+import ru.anykeyers.productionplannerstorage.domain.request.AbsenceTypeDetails;
 
 import java.util.List;
 

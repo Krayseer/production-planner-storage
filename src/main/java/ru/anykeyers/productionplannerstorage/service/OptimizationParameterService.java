@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.service;
 
-import ru.anykeyers.productionplannerstorage.controller.dto.OptimizationParameterDto;
-import ru.anykeyers.productionplannerstorage.controller.request.OptimizationParameterDetails;
+import ru.anykeyers.productionplannerstorage.domain.dto.OptimizationParameterDto;
+import ru.anykeyers.productionplannerstorage.domain.request.OptimizationParameterDetails;
 import ru.anykeyers.productionplannerstorage.exception.OptimizationParameterNotFoundException;
 
 import java.util.List;

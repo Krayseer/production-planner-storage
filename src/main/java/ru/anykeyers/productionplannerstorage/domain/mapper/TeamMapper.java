@@ -1,8 +1,8 @@
-package ru.anykeyers.productionplannerstorage.controller.mapper;
+package ru.anykeyers.productionplannerstorage.domain.mapper;
 
 import org.mapstruct.Mapper;
 import ru.anykeyers.productionplannerstorage.config.CentralMapperConfig;
-import ru.anykeyers.productionplannerstorage.controller.dto.TeamDto;
+import ru.anykeyers.productionplannerstorage.domain.dto.TeamDto;
 import ru.anykeyers.productionplannerstorage.domain.Team;
 
 @Mapper(config = CentralMapperConfig.class)
