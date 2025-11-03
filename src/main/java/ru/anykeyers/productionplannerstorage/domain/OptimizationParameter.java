@@ -61,6 +61,7 @@ public class OptimizationParameter {
             name = "MAX_TEAMS_PER_DAY",
             nullable = false
     )
+    @Builder.Default
     private Integer maxTeamsPerDay = DEFAULT_MAX_TEAMS_PER_DAY;
 
     /**
@@ -100,5 +101,6 @@ public class OptimizationParameter {
     @Column(
             name = "IS_ACTIVE"
     )
+    @Builder.Default
     private Boolean active = DEFAULT_ACTIVE;
 }

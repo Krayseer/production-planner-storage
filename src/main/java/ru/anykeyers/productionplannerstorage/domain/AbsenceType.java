@@ -79,6 +79,7 @@ public class AbsenceType {
             precision = 3,
             scale = 2
     )
+    @Builder.Default
     private BigDecimal impactFactor = DEFAULT_IMPACT_FACTOR;
 
     /**
@@ -87,6 +88,7 @@ public class AbsenceType {
     @Column(
             name = "IS_ACTIVE"
     )
+    @Builder.Default
     private Boolean active = DEFAULT_ACTIVE;
 
     /**

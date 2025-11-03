@@ -84,6 +84,7 @@ public class Employee {
     @Column(
             name = "IS_ACTIVE"
     )
+    @Builder.Default
     private Boolean active = DEFAULT_ACTIVE;
 
     /**

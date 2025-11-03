@@ -71,6 +71,7 @@ public class Shift {
             name = "MAX_TEAMS",
             nullable = false
     )
+    @Builder.Default
     private Integer maxTeams = DEFAULT_MAX_TEAMS;
 
     /**

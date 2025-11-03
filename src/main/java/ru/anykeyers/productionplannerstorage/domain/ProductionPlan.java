@@ -86,6 +86,7 @@ public class ProductionPlan {
     @Column(
             name = "PERIOD_MONTH"
     )
+    @Builder.Default
     private Integer periodMonths = DEFAULT_PERIOD_MONTH;
 
     /**
@@ -94,6 +95,7 @@ public class ProductionPlan {
     @Column(
             name = "PRIORITY"
     )
+    @Builder.Default
     private Integer priority = DEFAULT_PRIORITY;
 
     /**

@@ -74,6 +74,7 @@ public class TeamAvailability {
     @Column(
             name = "IS_AVAILABLE"
     )
+    @Builder.Default
     private Boolean available = DEFAULT_AVAILABLE;
 
     /**

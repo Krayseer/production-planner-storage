@@ -136,6 +136,7 @@ public class OptimizationResult {
             name = "STATUS",
             length = 20
     )
+    @Builder.Default
     private String status = DEFAULT_STATUS;
 
     /**
