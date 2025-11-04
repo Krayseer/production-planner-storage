@@ -17,6 +17,7 @@ final class ControllerPath {
     public static final String WORK_SCHEDULES = BASE + "/work-schedules";
     public static final String PRODUCTION_PLANS = BASE + "/production-plans";
     public static final String TEAM_PRODUCTIVITY = BASE + "/team-productivity";
+    public static final String ASSEMBLY_SCHEDULES = BASE + "/assembly-schedule";
     public static final String OPTIMIZATION_PARAMETERS = BASE + "/optimization-parameters";
 
 }
