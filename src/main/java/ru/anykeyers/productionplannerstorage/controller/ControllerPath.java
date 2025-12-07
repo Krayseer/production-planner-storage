@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 final class ControllerPath {
 
-    public static final String BASE = "/api";
+    public static final String BASE = "/api/v1";
     public static final String TEAMS = BASE + "/teams";
     public static final String PRODUCTS = BASE + "/products";
     public static final String EMPLOYEES = BASE + "/employees";
