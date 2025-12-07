@@ -7,9 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.domain.dto.ProductDto;
 import ru.anykeyers.productionplannerstorage.domain.request.ProductDetails;
 
@@ -19,7 +16,6 @@ import java.util.List;
  * Контракт для операций с изделиями
  */
 @Tag(name = "Products", description = "API для управления изделиями")
-@RequestMapping(ControllerPath.PRODUCTS)
 public interface ProductApi {
 
     @Operation(
@@ -33,7 +29,6 @@ public interface ProductApi {
                     )
             }
     )
-    @GetMapping
     List<ProductDto> getAllProducts();
 
     @Operation(
@@ -44,11 +39,7 @@ public interface ProductApi {
                     @ApiResponse(responseCode = "404", description = "Изделие не найдено")
             }
     )
-    @GetMapping("/{id}")
-    ProductDto getProductById(
-            @Parameter(description = "Уникальный идентификатор изделия", example = "1")
-            @PathVariable long id
-    );
+    ProductDto getProductById(@Parameter(description = "Уникальный идентификатор изделия", example = "1") long i);
 
     @Operation(
             summary = "Создать новое изделие",
@@ -58,15 +49,13 @@ public interface ProductApi {
                     @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
             }
     )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     ProductDto createProduct(
             @RequestBody(
                     required = true,
                     description = "Данные нового изделия",
                     content = @Content(schema = @Schema(implementation = ProductDetails.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody @Valid ProductDetails productDetails
+            ProductDetails productDetails
     );
 
     @Operation(
@@ -77,11 +66,9 @@ public interface ProductApi {
                     @ApiResponse(responseCode = "404", description = "Изделие не найдено")
             }
     )
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     ProductDto updateProduct(
-            @Parameter(description = "ID изделия", example = "1") @PathVariable long id,
-            @org.springframework.web.bind.annotation.RequestBody ProductDetails productDetails
+            @Parameter(description = "ID изделия", example = "1") long id,
+            ProductDetails productDetails
     );
 
     @Operation(
@@ -92,10 +79,6 @@ public interface ProductApi {
                     @ApiResponse(responseCode = "404", description = "Изделие не найдено")
             }
     )
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteProduct(
-            @Parameter(description = "ID изделия", example = "1") @PathVariable long id
-    );
+    void deleteProduct(@Parameter(description = "ID изделия", example = "1") long id);
 
 }

@@ -7,9 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.domain.dto.TeamDto;
 import ru.anykeyers.productionplannerstorage.domain.request.TeamDetails;
 
@@ -19,7 +16,6 @@ import java.util.List;
  * Контракт для управления бригадами
  */
 @Tag(name = "Teams", description = "API для управления бригадами")
-@RequestMapping(ControllerPath.TEAMS)
 public interface TeamApi {
 
     @Operation(
@@ -33,7 +29,6 @@ public interface TeamApi {
                     )
             }
     )
-    @GetMapping
     List<TeamDto> getTeams();
 
     @Operation(
@@ -44,11 +39,7 @@ public interface TeamApi {
                     @ApiResponse(responseCode = "404", description = "Бригада не найдена")
             }
     )
-    @GetMapping("/{id}")
-    TeamDto getTeam(
-            @Parameter(description = "Уникальный идентификатор бригады", example = "1")
-            @PathVariable Long id
-    );
+    TeamDto getTeam(@Parameter(description = "Уникальный идентификатор бригады", example = "1") Long id);
 
     @Operation(
             summary = "Создать новую бригаду",
@@ -58,15 +49,13 @@ public interface TeamApi {
                     @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
             }
     )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     TeamDto createTeam(
             @RequestBody(
                     required = true,
                     description = "Данные новой бригады",
                     content = @Content(schema = @Schema(implementation = TeamDetails.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody @Valid TeamDetails teamDetails
+            TeamDetails teamDetails
     );
 
     @Operation(
@@ -78,11 +67,9 @@ public interface TeamApi {
                     @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
             }
     )
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     TeamDto updateTeam(
-            @Parameter(description = "ID бригады", example = "1") @PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestBody @Valid TeamDetails teamDetails
+            @Parameter(description = "ID бригады", example = "1") Long id,
+            TeamDetails teamDetails
     );
 
     @Operation(
@@ -93,10 +80,6 @@ public interface TeamApi {
                     @ApiResponse(responseCode = "404", description = "Бригада не найдена")
             }
     )
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteTeam(
-            @Parameter(description = "ID бригады", example = "1") @PathVariable Long id
-    );
+    void deleteTeam(@Parameter(description = "ID бригады", example = "1") Long id);
 
 }

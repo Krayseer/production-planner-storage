@@ -1,13 +1,13 @@
-package ru.anykeyers.productionplannerstorage.controller;
+package ru.anykeyers.productionplannerstorage.controller.rest;
 
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 /**
- * Пути контроллеров
+ * REST пути контроллеров
  */
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-final class ControllerPath {
+final class RestControllerPath {
 
     public static final String BASE = "/api/v1";
     public static final String TEAMS = BASE + "/teams";

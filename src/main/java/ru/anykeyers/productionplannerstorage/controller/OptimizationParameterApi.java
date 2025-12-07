@@ -7,9 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.domain.dto.OptimizationParameterDto;
 import ru.anykeyers.productionplannerstorage.domain.request.OptimizationParameterDetails;
 
@@ -19,7 +16,6 @@ import java.util.List;
  * Контракт для операций с параметрами оптимизации
  */
 @Tag(name = "Optimization Parameters", description = "API для управления параметрами оптимизации")
-@RequestMapping(ControllerPath.OPTIMIZATION_PARAMETERS)
 public interface OptimizationParameterApi {
 
     @Operation(
@@ -33,7 +29,6 @@ public interface OptimizationParameterApi {
                     )
             }
     )
-    @GetMapping
     List<OptimizationParameterDto> getActiveOptimizationParameters();
 
     @Operation(
@@ -44,15 +39,13 @@ public interface OptimizationParameterApi {
                     @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
             }
     )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     OptimizationParameterDto createOptimizationParameter(
             @RequestBody(
                     required = true,
                     description = "Данные нового параметра оптимизации",
                     content = @Content(schema = @Schema(implementation = OptimizationParameterDetails.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody @Valid OptimizationParameterDetails optimizationParameterDetails
+            OptimizationParameterDetails optimizationParameterDetails
     );
 
     @Operation(
@@ -64,12 +57,10 @@ public interface OptimizationParameterApi {
                     @ApiResponse(responseCode = "400", description = "Ошибка валидации входных данных")
             }
     )
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     OptimizationParameterDto updateOptimizationParameter(
             @Parameter(description = "Уникальный идентификатор параметра оптимизации", example = "1")
-            @PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestBody @Valid OptimizationParameterDetails optimizationParameterDetails
+            Long id,
+            OptimizationParameterDetails optimizationParameterDetails
     );
 
 }

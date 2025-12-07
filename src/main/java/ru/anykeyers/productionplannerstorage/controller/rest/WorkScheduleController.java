@@ -1,7 +1,9 @@
-package ru.anykeyers.productionplannerstorage.controller.impl;
+package ru.anykeyers.productionplannerstorage.controller.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.controller.WorkScheduleApi;
 import ru.anykeyers.productionplannerstorage.domain.dto.WorkScheduleDto;
 import ru.anykeyers.productionplannerstorage.domain.request.WorkScheduleDetails;
@@ -11,22 +13,29 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(RestControllerPath.WORK_SCHEDULES)
 public class WorkScheduleController implements WorkScheduleApi {
 
     private final WorkScheduleService workScheduleService;
 
     @Override
+    @GetMapping
     public List<WorkScheduleDto> getWorkSchedules() {
         return workScheduleService.getWorkSchedules();
     }
 
     @Override
-    public WorkScheduleDto createWorkSchedule(WorkScheduleDetails workScheduleDetails) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public WorkScheduleDto createWorkSchedule(@RequestBody @Valid WorkScheduleDetails workScheduleDetails) {
         return workScheduleService.createWorkSchedule(workScheduleDetails);
     }
 
     @Override
-    public WorkScheduleDto updateWorkSchedule(Long id, WorkScheduleDetails workScheduleDetails) {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public WorkScheduleDto updateWorkSchedule(@PathVariable Long id,
+                                              @RequestBody @Valid WorkScheduleDetails workScheduleDetails) {
         return workScheduleService.updateWorkSchedule(id, workScheduleDetails);
     }
 

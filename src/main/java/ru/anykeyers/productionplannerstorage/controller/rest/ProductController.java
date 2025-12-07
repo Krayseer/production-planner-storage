@@ -1,6 +1,8 @@
-package ru.anykeyers.productionplannerstorage.controller.impl;
+package ru.anykeyers.productionplannerstorage.controller.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.controller.ProductApi;
 import ru.anykeyers.productionplannerstorage.domain.dto.ProductDto;
@@ -11,32 +13,41 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(RestControllerPath.PRODUCTS)
 public class ProductController implements ProductApi {
 
     private final ProductService productService;
 
     @Override
+    @GetMapping
     public List<ProductDto> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @Override
-    public ProductDto getProductById(long id) {
+    @GetMapping("/{id}")
+    public ProductDto getProductById(@PathVariable long id) {
         return productService.getProduct(id);
     }
 
     @Override
-    public ProductDto createProduct(ProductDetails productDetails) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public ProductDto createProduct(@RequestBody @Valid ProductDetails productDetails) {
         return productService.createProduct(productDetails);
     }
 
     @Override
-    public ProductDto updateProduct(long id, ProductDetails productDetails) {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public ProductDto updateProduct(@PathVariable long id, @RequestBody @Valid ProductDetails productDetails) {
         return productService.updateProduct(id, productDetails);
     }
 
     @Override
-    public void deleteProduct(long id) {
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteProduct(@PathVariable long id) {
         productService.deleteProduct(id);
     }
 

@@ -7,9 +7,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.domain.dto.WorkScheduleDto;
 import ru.anykeyers.productionplannerstorage.domain.request.WorkScheduleDetails;
 
@@ -19,7 +16,6 @@ import java.util.List;
  * Контракт для операций с табелем рабочего времени
  */
 @Tag(name = "Work Schedules", description = "API для управления табелем рабочего времени сотрудников")
-@RequestMapping(ControllerPath.WORK_SCHEDULES)
 public interface WorkScheduleApi {
 
     @Operation(
@@ -33,7 +29,6 @@ public interface WorkScheduleApi {
                     )
             }
     )
-    @GetMapping
     List<WorkScheduleDto> getWorkSchedules();
 
     @Operation(
@@ -45,15 +40,13 @@ public interface WorkScheduleApi {
                     @ApiResponse(responseCode = "404", description = "Сотрудник или тип отсутствия не найден")
             }
     )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     WorkScheduleDto createWorkSchedule(
             @RequestBody(
                     required = true,
                     description = "Данные новой записи табеля рабочего времени",
                     content = @Content(schema = @Schema(implementation = WorkScheduleDetails.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody @Valid WorkScheduleDetails workScheduleDetails
+            WorkScheduleDetails workScheduleDetails
     );
 
     @Operation(
@@ -65,12 +58,10 @@ public interface WorkScheduleApi {
                     @ApiResponse(responseCode = "404", description = "Запись табеля не найдена")
             }
     )
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     WorkScheduleDto updateWorkSchedule(
             @Parameter(description = "Уникальный идентификатор записи табеля рабочего времени", example = "1")
-            @PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestBody @Valid WorkScheduleDetails workScheduleDetails
+            Long id,
+            WorkScheduleDetails workScheduleDetails
     );
 
 }

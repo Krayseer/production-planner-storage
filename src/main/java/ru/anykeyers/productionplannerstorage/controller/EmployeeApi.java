@@ -7,16 +7,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.domain.dto.EmployeeDto;
 import ru.anykeyers.productionplannerstorage.domain.request.EmployeeDetails;
 
 import java.util.List;
 
 @Tag(name = "Employees", description = "API для управления сотрудниками")
-@RequestMapping(ControllerPath.EMPLOYEES)
 public interface EmployeeApi {
 
     @Operation(
@@ -27,7 +23,6 @@ public interface EmployeeApi {
                             content = @Content(schema = @Schema(implementation = EmployeeDto.class)))
             }
     )
-    @GetMapping
     List<EmployeeDto> getAllEmployees();
 
     @Operation(
@@ -39,10 +34,7 @@ public interface EmployeeApi {
                     @ApiResponse(responseCode = "404", description = "Бригада не найдена")
             }
     )
-    @GetMapping("/team/{teamId}")
-    List<EmployeeDto> getEmployeesByTeamId(
-            @Parameter(description = "ID бригады", example = "1") @PathVariable Long teamId
-    );
+    List<EmployeeDto> getEmployeesByTeamId(@Parameter(description = "ID бригады", example = "1") Long teamId);
 
     @Operation(
             summary = "Создать нового сотрудника",
@@ -53,15 +45,13 @@ public interface EmployeeApi {
                     @ApiResponse(responseCode = "404", description = "Бригада не найдена")
             }
     )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     EmployeeDto createEmployee(
             @RequestBody(
                     required = true,
                     description = "Данные нового сотрудника",
                     content = @Content(schema = @Schema(implementation = EmployeeDetails.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody @Valid EmployeeDetails employeeDetails
+            EmployeeDetails employeeDetails
     );
 
     @Operation(
@@ -73,11 +63,9 @@ public interface EmployeeApi {
                     @ApiResponse(responseCode = "404", description = "Сотрудник или бригада не найдены")
             }
     )
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     EmployeeDto updateEmployee(
-            @Parameter(description = "ID сотрудника", example = "1") @PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestBody @Valid EmployeeDetails employeeDetails
+            @Parameter(description = "ID сотрудника", example = "1") Long id,
+            EmployeeDetails employeeDetails
     );
 
 }

@@ -7,16 +7,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.domain.dto.TeamProductivityDto;
 import ru.anykeyers.productionplannerstorage.domain.request.TeamProductivityDetails;
 
 import java.util.List;
 
 @Tag(name = "Team Productivity", description = "API для управления матрицами производительности бригад")
-@RequestMapping(ControllerPath.TEAM_PRODUCTIVITY)
 public interface TeamProductivityApi {
 
     @Operation(
@@ -27,7 +23,6 @@ public interface TeamProductivityApi {
                             content = @Content(schema = @Schema(implementation = TeamProductivityDto.class)))
             }
     )
-    @GetMapping
     List<TeamProductivityDto> getAllTeamProductivity();
 
     @Operation(
@@ -39,10 +34,8 @@ public interface TeamProductivityApi {
                     @ApiResponse(responseCode = "404", description = "Бригада не найдена")
             }
     )
-    @GetMapping("/team/{teamId}")
     List<TeamProductivityDto> getTeamProductivityByTeamId(
-            @Parameter(description = "ID бригады", example = "1") @PathVariable Long teamId
-    );
+            @Parameter(description = "ID бригады", example = "1") Long teamId);
 
     @Operation(
             summary = "Получить записи производительности по ID продукта",
@@ -53,10 +46,8 @@ public interface TeamProductivityApi {
                     @ApiResponse(responseCode = "404", description = "Продукт не найден")
             }
     )
-    @GetMapping("/product/{productId}")
     List<TeamProductivityDto> getTeamProductivityByProductId(
-            @Parameter(description = "ID продукта", example = "1") @PathVariable Long productId
-    );
+            @Parameter(description = "ID продукта", example = "1") Long productId);
 
     @Operation(
             summary = "Создать запись производительности бригады",
@@ -67,15 +58,13 @@ public interface TeamProductivityApi {
                     @ApiResponse(responseCode = "404", description = "Бригада или продукт не найдены")
             }
     )
-    @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     TeamProductivityDto createTeamProductivity(
             @RequestBody(
                     required = true,
                     description = "Данные новой записи производительности",
                     content = @Content(schema = @Schema(implementation = TeamProductivityDetails.class))
             )
-            @org.springframework.web.bind.annotation.RequestBody @Valid TeamProductivityDetails teamProductivityDetails
+            TeamProductivityDetails teamProductivityDetails
     );
 
     @Operation(
@@ -87,11 +76,9 @@ public interface TeamProductivityApi {
                     @ApiResponse(responseCode = "404", description = "Запись, бригада или продукт не найдены")
             }
     )
-    @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     TeamProductivityDto updateTeamProductivity(
-            @Parameter(description = "ID записи производительности", example = "1") @PathVariable Long id,
-            @org.springframework.web.bind.annotation.RequestBody @Valid TeamProductivityDetails teamProductivityDetails
+            @Parameter(description = "ID записи производительности", example = "1") Long id,
+            TeamProductivityDetails teamProductivityDetails
     );
 
     @Operation(
@@ -102,10 +89,6 @@ public interface TeamProductivityApi {
                     @ApiResponse(responseCode = "404", description = "Запись не найдена")
             }
     )
-    @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    void deleteTeamProductivity(
-            @Parameter(description = "ID записи производительности", example = "1") @PathVariable Long id
-    );
+    void deleteTeamProductivity(@Parameter(description = "ID записи производительности", example = "1") Long id);
 
 }

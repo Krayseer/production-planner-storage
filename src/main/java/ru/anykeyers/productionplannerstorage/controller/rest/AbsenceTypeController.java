@@ -1,7 +1,9 @@
-package ru.anykeyers.productionplannerstorage.controller.impl;
+package ru.anykeyers.productionplannerstorage.controller.rest;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.controller.AbsenceTypeApi;
 import ru.anykeyers.productionplannerstorage.domain.dto.AbsenceTypeDto;
 import ru.anykeyers.productionplannerstorage.domain.request.AbsenceTypeDetails;
@@ -11,27 +13,35 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(RestControllerPath.ABSENCE_TYPES)
 public class AbsenceTypeController implements AbsenceTypeApi {
 
     private final AbsenceTypeService absenceTypeService;
 
     @Override
+    @GetMapping
     public List<AbsenceTypeDto> getAbsenceTypes() {
         return absenceTypeService.getAbsenceTypes();
     }
 
     @Override
-    public AbsenceTypeDto getAbsenceTypeById(Long absenceTypeId) {
+    @GetMapping("/{id}")
+    public AbsenceTypeDto getAbsenceTypeById(@PathVariable("id") Long absenceTypeId) {
         return absenceTypeService.getAbsenceTypeById(absenceTypeId);
     }
 
     @Override
-    public AbsenceTypeDto createAbsenceType(AbsenceTypeDetails absenceTypeDetails) {
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    public AbsenceTypeDto createAbsenceType(@RequestBody @Valid AbsenceTypeDetails absenceTypeDetails) {
         return absenceTypeService.createAbsenceType(absenceTypeDetails);
     }
 
     @Override
-    public AbsenceTypeDto updateAbsenceType(Long absenceTypeId, AbsenceTypeDetails absenceTypeDetails) {
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public AbsenceTypeDto updateAbsenceType(@PathVariable("id") Long absenceTypeId,
+                                            @RequestBody @Valid AbsenceTypeDetails absenceTypeDetails) {
         return absenceTypeService.updateAbsenceType(absenceTypeId, absenceTypeDetails);
     }
 
