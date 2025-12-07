@@ -4,7 +4,7 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-public record ProductionPlanDetails(
+public record SessionOrderDetails(
         @NotNull(message = "ID продукта обязателен")
         Long productId,
 
@@ -20,17 +20,10 @@ public record ProductionPlanDetails(
         @Positive(message = "Количество должно быть больше 0")
         Integer quantity,
 
-        @NotNull(message = "Период планирования обязателен")
-        @Min(value = 1, message = "Минимальный период — 1 месяц")
-        @Max(value = 12, message = "Максимальный период — 12 месяцев")
-        Integer periodMonths,
-
-        @NotNull(message = "Приоритет обязателен")
-        @Min(value = 1, message = "Минимальный приоритет — 1")
-        @Max(value = 10, message = "Максимальный приоритет — 10")
-        Integer priority,
-
         @NotNull(message = "Крайний срок обязателен")
         @Future(message = "Крайний срок должен быть в будущем")
-        LocalDate deadlineDate
+        LocalDate deadlineDate,
+
+        @NotNull(message = "Источник обязателен")
+        String source
 ) {}

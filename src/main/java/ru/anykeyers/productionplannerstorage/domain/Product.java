@@ -83,7 +83,7 @@ public class Product {
             fetch = FetchType.LAZY,
             cascade = CascadeType.ALL
     )
-    private List<ProductionPlan> productionPlans;
+    private List<SessionOrder> sessionOrders;
 
     @OneToMany(
             mappedBy = "product",

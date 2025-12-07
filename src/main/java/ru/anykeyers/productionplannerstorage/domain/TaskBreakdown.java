@@ -50,7 +50,7 @@ public class TaskBreakdown {
             name = "PRODUCTION_PLAN_ID",
             nullable = false
     )
-    private ProductionPlan productionPlan;
+    private SessionOrder sessionOrder;
 
     /**
      * Общее количество к производству

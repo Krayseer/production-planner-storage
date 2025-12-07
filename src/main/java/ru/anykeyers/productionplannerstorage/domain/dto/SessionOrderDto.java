@@ -5,13 +5,11 @@ import ru.anykeyers.productionplannerstorage.domain.enums.ProductionType;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-public record ProductionPlanDto(
+public record SessionOrderDto(
         Long id,
         ProductDto product,
         ProductionType productionType,
-        Integer quantity,
-        Integer periodMonths,
-        Integer priority,
         LocalDate deadlineDate,
+        String source,
         LocalDateTime createdAt
 ) {}

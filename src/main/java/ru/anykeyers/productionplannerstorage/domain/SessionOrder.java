@@ -7,12 +7,9 @@ import ru.anykeyers.productionplannerstorage.domain.enums.ProductionType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
 
 /**
- * <b>План производства</b>
- * <p/>
- * Количественные цели по изделиям на 3 месяца
+ * <b>Заказы в сессии</b>
  */
 @Getter
 @Setter
@@ -21,17 +18,9 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(
-        name = "PRODUCTION_PLAN"
+        name = "SESSION_ORDERS"
 )
-public class ProductionPlan {
-    /**
-     * Стандартный период планирования
-     */
-    private static final int DEFAULT_PERIOD_MONTH = 3;
-    /**
-     * Стандартный приоритет выполнения
-     */
-    private static final int DEFAULT_PRIORITY = 1;
+public class SessionOrder {
 
     /**
      * Уникальный идентификатор плана
@@ -59,6 +48,19 @@ public class ProductionPlan {
     private Product product;
 
     /**
+     * Ссылка на сессию
+     */
+    @ManyToOne(
+            fetch = FetchType.LAZY,
+            optional = false
+    )
+    @JoinColumn(
+            name = "SESSION_ID",
+            nullable = false
+    )
+    private ProductionSession session;
+
+    /**
      * Тип производства
      */
     @Enumerated(
@@ -81,30 +83,20 @@ public class ProductionPlan {
     private Integer quantity;
 
     /**
-     * Период планирования, всегда {@link #DEFAULT_PERIOD_MONTH}
-     */
-    @Column(
-            name = "PERIOD_MONTH"
-    )
-    @Builder.Default
-    private Integer periodMonths = DEFAULT_PERIOD_MONTH;
-
-    /**
-     * Приоритет выполнения
-     */
-    @Column(
-            name = "PRIORITY"
-    )
-    @Builder.Default
-    private Integer priority = DEFAULT_PRIORITY;
-
-    /**
      * Крайний срок выполнения
      */
     @Column(
             name = "DEADLINE_DATE"
     )
     private LocalDate deadlineDate;
+
+    /**
+     * Источник
+     */
+    @Column(
+            name = "SOURCE"
+    )
+    private String source;
 
     /**
      * Дата создания плана
@@ -114,11 +106,4 @@ public class ProductionPlan {
     )
     @CreationTimestamp
     private LocalDateTime createdAt;
-
-    @OneToMany(
-            mappedBy = "productionPlan",
-            fetch = FetchType.LAZY,
-            cascade = CascadeType.ALL
-    )
-    private List<TaskBreakdown> taskBreakdowns;
 }
