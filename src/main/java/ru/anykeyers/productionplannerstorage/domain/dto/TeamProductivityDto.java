@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import ru.anykeyers.productionplannerstorage.domain.enums.ProductionType;
 
 import java.math.BigDecimal;
@@ -13,6 +12,6 @@ public record TeamProductivityDto(
         ProductionType productionType,
         Integer qualification,
         BigDecimal productivity,
-        @JsonProperty("is_active") Boolean active,
+        Boolean active,
         LocalDateTime createdAt
 ) {}

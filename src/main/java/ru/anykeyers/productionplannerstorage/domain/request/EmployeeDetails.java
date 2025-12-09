@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,7 +16,6 @@ public record EmployeeDetails(
         @NotNull(message = "qualification не может быть null")
         Integer qualification,
 
-        @JsonProperty("is_active")
         @NotNull(message = "is_active не может быть null")
         Boolean active
 ) {}

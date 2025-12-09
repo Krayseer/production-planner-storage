@@ -1,7 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.time.LocalDateTime;
 
 public record EmployeeDto(
@@ -10,6 +8,6 @@ public record EmployeeDto(
         TeamDto team,
         String position,
         Integer qualification,
-        @JsonProperty("is_active") Boolean active,
+        Boolean active,
         LocalDateTime createdAt
 ) {}

@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -15,6 +14,5 @@ public record ProductDetails(
         @Digits(integer = 3, fraction = 2, message = "Формат должен быть decimal(5,2)")
         BigDecimal assemblyProductivity,
 
-        @JsonProperty("is_active")
         boolean active
 ) {}

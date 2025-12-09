@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -18,7 +17,6 @@ public record AbsenceTypeDetails(
         @DecimalMax(value = "1.0", message = "impact_factor должно быть не больше 1.0")
         BigDecimal impactFactor,
 
-        @JsonProperty("is_active")
         @NotNull(message = "is_active не может быть null")
         Boolean active
 ) {}

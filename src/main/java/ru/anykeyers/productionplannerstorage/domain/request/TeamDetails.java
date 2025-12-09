@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
 public record TeamDetails(
@@ -28,6 +27,5 @@ public record TeamDetails(
         @Max(value = 24, message = "максимум часов в смену должен быть не больше 24")
         Integer maxDailyHours,
 
-        @JsonProperty("is_active")
         Boolean active
 ) {}

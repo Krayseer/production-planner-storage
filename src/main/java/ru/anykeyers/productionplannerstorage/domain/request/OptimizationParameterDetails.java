@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -24,7 +23,6 @@ public record OptimizationParameterDetails(
         @DecimalMin(value = "0.0", message = "допустимая разница загрузки 'ε' должна быть не меньше 0")
         BigDecimal loadBalanceTolerance,
 
-        @JsonProperty("is_active")
         boolean active
 ) {}
 

@@ -1,7 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -12,5 +10,5 @@ public record OptimizationParameterDto(
         BigDecimal maxHoursPerShift,
         BigDecimal loadBalanceTolerance,
         LocalDateTime createdAt,
-        @JsonProperty("is_active") Boolean active
+        Boolean active
 ) {}
