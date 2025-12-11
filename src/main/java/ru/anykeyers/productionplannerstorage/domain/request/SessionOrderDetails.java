@@ -9,11 +9,6 @@ public record SessionOrderDetails(
         Long productId,
 
         @NotNull(message = "Тип производства обязателен")
-        @Pattern(
-                regexp = "serial|non_serial",
-                flags = Pattern.Flag.CASE_INSENSITIVE,
-                message = "Тип производства должен быть 'serial' или 'non_serial'"
-        )
         String productionType,
 
         @NotNull(message = "Количество обязательно")
