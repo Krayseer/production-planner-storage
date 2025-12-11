@@ -1,10 +1,7 @@
 #!/bin/bash
 set -e
 
-TAR_FILE="production-planner.tar"
-ENV_FILE=".env"
-IMAGE_NAME="production-planner"
-IMAGE_TAG="latest"
+TAR_FILE="production-planner.tar" ENV_FILE=".env" IMAGE_NAME="production-planner" IMAGE_TAG="latest"
 
 if [ ! -f "$TAR_FILE" ]; then
   echo "❌ TAR file not found: $TAR_FILE"
