@@ -53,7 +53,6 @@ public class TeamProductivityController implements TeamProductivityApi {
 
     @Override
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTeamProductivity(@PathVariable Long id) {
         teamProductivityService.deleteTeamProductivity(id);
     }

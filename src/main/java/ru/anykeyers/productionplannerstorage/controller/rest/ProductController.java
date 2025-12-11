@@ -39,14 +39,12 @@ public class ProductController implements ProductApi {
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ProductDto updateProduct(@PathVariable long id, @RequestBody @Valid ProductDetails productDetails) {
         return productService.updateProduct(id, productDetails);
     }
 
     @Override
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProduct(@PathVariable long id) {
         productService.deleteProduct(id);
     }

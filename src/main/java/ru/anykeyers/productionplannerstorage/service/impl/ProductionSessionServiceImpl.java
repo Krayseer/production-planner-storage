@@ -60,7 +60,7 @@ public class ProductionSessionServiceImpl implements ProductionSessionService {
 
     @Override
     public ProductionSessionDto createProductionSessionOrder(Long productionSessionId, SessionOrderDetails sessionOrderDetails) {
-        Product product = getProductEntity(productionSessionId);
+        Product product = getProductEntity(sessionOrderDetails.productId());
         ProductionSession productionSession = getProductionSessionEntity(productionSessionId);
         SessionOrder sessionOrder = SessionOrder.builder()
                 .product(product)

@@ -46,7 +46,6 @@ public class ProductionSessionController implements ProductionSessionApi {
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public ProductionSessionDto updateProductionSession(@PathVariable Long id,
                                                         @RequestBody @Valid ProductionSessionDetails productionSessionDetails) {
         return productionSessionService.updateProductionSession(id, productionSessionDetails);
@@ -54,7 +53,6 @@ public class ProductionSessionController implements ProductionSessionApi {
 
     @Override
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteProductionPlan(@PathVariable Long id) {
         productionSessionService.deleteProductionSession(id);
     }

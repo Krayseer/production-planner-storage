@@ -51,7 +51,7 @@ public class TeamProductivityServiceImpl implements TeamProductivityService {
     @Override
     public TeamProductivityDto createTeamProductivity(TeamProductivityDetails teamProductivityDetails) {
         if (teamProductivityRepository.existsByTeamIdAndProductIdAndProductionType(teamProductivityDetails.teamId(),
-                teamProductivityDetails.productId(), teamProductivityDetails.productionType())) {
+                teamProductivityDetails.productId(), toProductionType(teamProductivityDetails.productionType()))) {
             throw new TeamProductivityNotUniqueException(teamProductivityDetails.teamId(),
                     teamProductivityDetails.productId(), teamProductivityDetails.productionType());
         }
@@ -74,7 +74,7 @@ public class TeamProductivityServiceImpl implements TeamProductivityService {
         TeamProductivity teamProductivity = teamProductivityRepository.findById(teamProductivityId)
                 .orElseThrow(() -> new TeamProductivityNotFoundException(teamProductivityId));
         if (teamProductivityRepository.existsByTeamIdAndProductIdAndProductionTypeAndIdNot(teamProductivityDetails.teamId(),
-                teamProductivityDetails.productId(), teamProductivityDetails.productionType(), teamProductivityId)) {
+                teamProductivityDetails.productId(), toProductionType(teamProductivityDetails.productionType()), teamProductivityId)) {
             throw new TeamProductivityNotUniqueException(teamProductivityDetails.teamId(),
                     teamProductivityDetails.productId(), teamProductivityDetails.productionType());
         }
@@ -101,6 +101,10 @@ public class TeamProductivityServiceImpl implements TeamProductivityService {
 
     private Product getProduct(Long productId) {
         return productRepository.findById(productId).orElseThrow(() -> new ProductNotFoundException(productId));
+    }
+
+    private ProductionType toProductionType(String productionType) {
+        return ProductionType.valueOf(productionType.toUpperCase());
     }
 
 }

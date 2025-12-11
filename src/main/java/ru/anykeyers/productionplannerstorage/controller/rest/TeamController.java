@@ -46,7 +46,6 @@ public class TeamController implements TeamApi {
 
     @Override
     @DeleteMapping("/{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTeam(@PathVariable Long id) {
         teamService.deleteTeam(id);
     }

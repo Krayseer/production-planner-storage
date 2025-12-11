@@ -2,6 +2,7 @@ package ru.anykeyers.productionplannerstorage.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import ru.anykeyers.productionplannerstorage.domain.TeamProductivity;
+import ru.anykeyers.productionplannerstorage.domain.enums.ProductionType;
 
 import java.util.List;
 
@@ -28,12 +29,12 @@ public interface TeamProductivityRepository extends JpaRepository<TeamProductivi
      * Существует ли запись производительности бригады с указанными идентификатором бригады, идентификатором продукта
      * и типом производства
      */
-    boolean existsByTeamIdAndProductIdAndProductionType(Long teamId, Long productId, String productionType);
+    boolean existsByTeamIdAndProductIdAndProductionType(Long teamId, Long productId, ProductionType productionType);
 
     /**
-     * Аналог {@link #existsByTeamIdAndProductIdAndProductionType(Long, Long, String)}, но без учета записи с указанным
+     * Аналог {@link #existsByTeamIdAndProductIdAndProductionType(Long, Long, ProductionType)}, но без учета записи с указанным
      * идентификатором {@code id}
      */
-    boolean existsByTeamIdAndProductIdAndProductionTypeAndIdNot(Long teamId, Long productId, String productionType, Long id);
+    boolean existsByTeamIdAndProductIdAndProductionTypeAndIdNot(Long teamId, Long productId, ProductionType productionType, Long id);
 
 }
