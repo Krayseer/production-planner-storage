@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 public record SessionOrderDto(
         Long id,
         ProductDto product,
+        Integer quantity,
         ProductionType productionType,
         LocalDate deadlineDate,
         String source,
