@@ -90,6 +90,7 @@ public class ProductionSessionService {
             productionSession.setSessionOrders(new ArrayList<>());
         }
         productionSession.getSessionOrders().add(sessionOrder);
+        sessionOrder.setSession(productionSession);
         ProductionSession savedProductionSession = productionSessionRepository.save(productionSession);
         log.info("Add session order to production session: {}", savedProductionSession);
         return productionSessionMapper.toDto(savedProductionSession);
