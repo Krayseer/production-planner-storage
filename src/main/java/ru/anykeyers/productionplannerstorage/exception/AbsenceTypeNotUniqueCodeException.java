@@ -1,7 +1,7 @@
 package ru.anykeyers.productionplannerstorage.exception;
 
 import org.springframework.http.HttpStatus;
-import ru.anykeyers.productionplannerstorage.domain.AbsenceType;
+import ru.anykeyers.productionplannerstorage.domain.model.AbsenceType;
 
 /**
  * Ошибка уникальности {@link AbsenceType#getCode() кода отсутствия}

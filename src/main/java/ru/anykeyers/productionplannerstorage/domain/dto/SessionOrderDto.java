@@ -1,6 +1,6 @@
 package ru.anykeyers.productionplannerstorage.domain.dto;
 
-import ru.anykeyers.productionplannerstorage.domain.enums.ProductionType;
+import ru.anykeyers.productionplannerstorage.domain.model.ProductionType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
