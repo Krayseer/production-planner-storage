@@ -51,7 +51,6 @@ public class ProductService {
     public ProductDto createProduct(ProductDetails productDetails) {
         Product product = Product.builder()
                 .name(productDetails.name())
-                .assemblyProductivity(productDetails.assemblyProductivity())
                 .active(productDetails.active())
                 .build();
         Product savedProduct = productRepository.save(product);
@@ -70,7 +69,6 @@ public class ProductService {
         Product existingProduct = productRepository.findById(productId)
                 .orElseThrow(() -> new ProductNotFoundException(productId));
         existingProduct.setName(productDetails.name());
-        existingProduct.setAssemblyProductivity(productDetails.assemblyProductivity());
         existingProduct.setActive(productDetails.active());
         Product updatedProduct = productRepository.save(existingProduct);
         log.info("Updated product {}", updatedProduct);

@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
+                                     https://jakarta.ee/xml/ns/persistence/orm_3_1.xsd"
+                 version="3.1">
+    <package>ru.anykeyers.productionplannerstorage.domain.model</package>
+
+    <entity class="Product" name="Product">
+        <table name="PRODUCTS"/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="name">
+                <column name="NAME" nullable="false"/>
+            </basic>
+            <basic name="active">
+                <column name="IS_ACTIVE"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <one-to-many name="sessionOrders" mapped-by="product" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="teamProductivityList" mapped-by="product" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="optimizationResults" mapped-by="product" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <entity class="AbsenceType" name="AbsenceType">
+        <table name="ABSENCE_TYPES"/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="code">
+                <column name="CODE" nullable="false" unique="true" length="10"/>
+            </basic>
+            <basic name="name">
+                <column name="NAME" nullable="false" length="100"/>
+            </basic>
+            <basic name="impactFactor">
+                <column name="IMPACT_FACTOR" nullable="false" precision="3" scale="2"/>
+            </basic>
+            <basic name="active">
+                <column name="IS_ACTIVE"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <one-to-many name="workSchedules" mapped-by="absenceType" fetch="LAZY"/>
+        </attributes>
+    </entity>
+
+    <entity class="Employee" name="Employee">
+        <table name="EMPLOYEES"/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="fullName">
+                <column name="FULL_NAME" nullable="false"/>
+            </basic>
+            <basic name="position">
+                <column name="POSITION" length="100"/>
+            </basic>
+            <basic name="qualification">
+                <column name="QUALIFICATION"/>
+            </basic>
+            <basic name="active">
+                <column name="IS_ACTIVE"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <many-to-one name="team" fetch="LAZY">
+                <join-column name="team_id" referenced-column-name="id"/>
+            </many-to-one>
+            <one-to-many name="workSchedules" mapped-by="employee" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <entity class="ProductionSession" name="ProductionSession">
+        <table name="PRODUCTION_SESSIONS"/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="name">
+                <column name="NAME"/>
+            </basic>
+            <basic name="startDate">
+                <column name="START_DATE" nullable="false"/>
+            </basic>
+            <basic name="endDate">
+                <column name="END_DATE" nullable="false"/>
+            </basic>
+            <basic name="status">
+                <column name="STATUS" length="20"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <one-to-many name="sessionOrders" mapped-by="session" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <entity class="SessionOrder" name="SessionOrder">
+        <table name="SESSION_ORDERS"/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="productionType">
+                <column name="PRODUCTION_TYPE" nullable="false" length="20"/>
+            </basic>
+            <basic name="quantity">
+                <column name="QUANTITY" nullable="false"/>
+            </basic>
+            <basic name="deadlineDate">
+                <column name="DEADLINE_DATE"/>
+            </basic>
+            <basic name="source">
+                <column name="SOURCE"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <many-to-one name="product" fetch="LAZY" optional="false">
+                <join-column name="PRODUCT_ID" nullable="false"/>
+            </many-to-one>
+            <many-to-one name="session" fetch="LAZY" optional="false">
+                <join-column name="SESSION_ID" nullable="false"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+
+    <entity class="Team" name="Team">
+        <table name="TEAMS"/>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="name">
+                <column name="NAME" nullable="false" length="100"/>
+            </basic>
+            <basic name="teamType">
+                <column name="TEAM_TYPE" nullable="false" length="20"/>
+            </basic>
+            <basic name="employeeCount">
+                <column name="EMPLOYEE_COUNT" nullable="false"/>
+            </basic>
+            <basic name="monthlyHours">
+                <column name="MONTHLY_HOURS" nullable="false"/>
+            </basic>
+            <basic name="maxDailyHours">
+                <column name="MAX_DAILY_HOURS" nullable="false"/>
+            </basic>
+            <basic name="active">
+                <column name="IS_ACTIVE"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <one-to-many name="employees" mapped-by="team" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="teamProductivityList" mapped-by="team" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+            <one-to-many name="optimizationResults" mapped-by="team" fetch="LAZY">
+                <cascade>
+                    <cascade-all/>
+                </cascade>
+            </one-to-many>
+        </attributes>
+    </entity>
+
+    <entity class="TeamProductivity" name="TeamProductivity">
+        <table name="TEAM_PRODUCTIVITY">
+            <unique-constraint>
+                <column-name>TEAM_ID</column-name>
+                <column-name>PRODUCT_ID</column-name>
+                <column-name>PRODUCTION_TYPE</column-name>
+            </unique-constraint>
+        </table>
+        <attributes>
+            <id name="id">
+                <column name="ID"/>
+                <generated-value strategy="IDENTITY"/>
+            </id>
+            <basic name="productionType">
+                <column name="PRODUCTION_TYPE" nullable="false" length="20"/>
+            </basic>
+            <basic name="qualification">
+                <column name="QUALIFICATION" nullable="false"/>
+            </basic>
+            <basic name="productivity">
+                <column name="PRODUCTIVITY" nullable="false" precision="5" scale="3"/>
+            </basic>
+            <basic name="active">
+                <column name="IS_ACTIVE"/>
+            </basic>
+            <basic name="createdAt">
+                <column name="CREATED_AT"/>
+            </basic>
+            <many-to-one name="team" fetch="LAZY" optional="false">
+                <join-column name="TEAM_ID" nullable="false"/>
+            </many-to-one>
+            <many-to-one name="product" fetch="LAZY" optional="false">
+                <join-column name="PRODUCT_ID" nullable="false"/>
+            </many-to-one>
+        </attributes>
+    </entity>
+
+</entity-mappings>

@@ -1,6 +1,5 @@
 package ru.anykeyers.productionplannerstorage.domain.model;
 
-import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -14,20 +13,9 @@ import java.time.LocalDateTime;
  */
 @Getter
 @Setter
-@Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(
-        name = "TEAM_PRODUCTIVITY",
-        uniqueConstraints = @UniqueConstraint(
-                columnNames = {
-                        "TEAM_ID",
-                        "PRODUCT_ID",
-                        "PRODUCTION_TYPE"
-                }
-        )
-)
 public class TeamProductivity {
     /**
      * Стандартный флаг активности записи
@@ -37,54 +25,11 @@ public class TeamProductivity {
     /**
      * Уникальный идентификатор производительности
      */
-    @Id
-    @Column(
-            name = "ID"
-    )
-    @GeneratedValue(
-            strategy = GenerationType.IDENTITY
-    )
     private Long id;
-
-    /**
-     * Ссылка на бригаду
-     */
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(
-            name = "TEAM_ID",
-            nullable = false
-    )
-    private Team team;
-
-    /**
-     * Ссылка на изделие
-     */
-    @ManyToOne(
-            fetch = FetchType.LAZY,
-            optional = false
-    )
-    @JoinColumn(
-            name = "PRODUCT_ID",
-            nullable = false
-    )
-    private Product product;
-
     /**
      * Тип производства
      */
-    @Enumerated(
-            value = EnumType.STRING
-    )
-    @Column(
-            name = "PRODUCTION_TYPE",
-            nullable = false,
-            length = 20
-    )
     private ProductionType productionType;
-
     /**
      * Квалификация
      * <ul>
@@ -93,38 +38,22 @@ public class TeamProductivity {
      *     <li>2 - несерийное</li>
      * </ul>
      */
-    @Column(
-            name = "QUALIFICATION",
-            nullable = false
-    )
     private Integer qualification;
-
     /**
      * Производительность (шт/час)
      */
-    @Column(
-            name = "PRODUCTIVITY",
-            nullable = false,
-            precision = 5,
-            scale = 3
-    )
     private BigDecimal productivity;
-
     /**
      * Флаг активности записи
      */
-    @Column(
-            name = "IS_ACTIVE"
-    )
     @Builder.Default
     private Boolean active = DEFAULT_ACTIVE;
-
     /**
      * Дата создания
      */
-    @Column(
-            name = "CREATED_AT"
-    )
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    private Team team;
+    private Product product;
 }
