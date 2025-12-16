@@ -7,8 +7,8 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.anykeyers.productionplannerstorage.domain.dto.WorkScheduleDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.WorkScheduleDetails;
+import ru.anykeyers.productionplannerstorage.domain.workshedule.WorkScheduleDto;
+import ru.anykeyers.productionplannerstorage.domain.workshedule.WorkScheduleDetails;
 
 import java.util.List;
 

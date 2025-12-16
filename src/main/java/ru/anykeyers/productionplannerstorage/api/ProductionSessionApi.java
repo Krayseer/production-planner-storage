@@ -7,9 +7,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import ru.anykeyers.productionplannerstorage.domain.dto.ProductionSessionDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.ProductionSessionDetails;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.SessionOrderDetails;
+import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionDto;
+import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionDetails;
+import ru.anykeyers.productionplannerstorage.domain.session.order.SessionOrderDetails;
 
 import java.util.List;
 

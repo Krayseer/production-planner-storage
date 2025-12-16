@@ -2,13 +2,12 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.ProductionSessionApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.ProductionSessionDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.ProductionSessionDetails;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.SessionOrderDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.ProductionSessionService;
+import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionDto;
+import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionDetails;
+import ru.anykeyers.productionplannerstorage.domain.session.order.SessionOrderDetails;
+import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionService;
 
 import java.util.List;
 
@@ -33,7 +32,6 @@ class ProductionSessionController implements ProductionSessionApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ProductionSessionDto createProductionSession(@RequestBody @Valid ProductionSessionDetails productionSessionDetails) {
         return productionSessionService.createProductionSession(productionSessionDetails);
     }

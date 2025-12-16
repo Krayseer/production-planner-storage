@@ -2,12 +2,11 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.AbsenceTypeApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.AbsenceTypeDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.AbsenceTypeDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.AbsenceTypeService;
+import ru.anykeyers.productionplannerstorage.domain.absencetype.AbsenceTypeDto;
+import ru.anykeyers.productionplannerstorage.domain.absencetype.AbsenceTypeDetails;
+import ru.anykeyers.productionplannerstorage.domain.absencetype.AbsenceTypeService;
 
 import java.util.List;
 
@@ -32,14 +31,12 @@ class AbsenceTypeController implements AbsenceTypeApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public AbsenceTypeDto createAbsenceType(@RequestBody @Valid AbsenceTypeDetails absenceTypeDetails) {
         return absenceTypeService.createAbsenceType(absenceTypeDetails);
     }
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public AbsenceTypeDto updateAbsenceType(@PathVariable("id") Long absenceTypeId,
                                             @RequestBody @Valid AbsenceTypeDetails absenceTypeDetails) {
         return absenceTypeService.updateAbsenceType(absenceTypeId, absenceTypeDetails);

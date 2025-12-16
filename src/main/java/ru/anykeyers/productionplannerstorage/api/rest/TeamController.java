@@ -2,12 +2,11 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.TeamApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.TeamDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.TeamDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.TeamService;
+import ru.anykeyers.productionplannerstorage.domain.team.TeamDto;
+import ru.anykeyers.productionplannerstorage.domain.team.TeamDetails;
+import ru.anykeyers.productionplannerstorage.domain.team.TeamService;
 
 import java.util.List;
 
@@ -32,14 +31,12 @@ class TeamController implements TeamApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public TeamDto createTeam(@RequestBody @Valid TeamDetails teamDetails) {
         return teamService.createTeam(teamDetails);
     }
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public TeamDto updateTeam(@PathVariable Long id, @RequestBody @Valid TeamDetails teamDetails) {
         return teamService.updateTeam(id, teamDetails);
     }

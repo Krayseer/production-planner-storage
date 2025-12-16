@@ -2,12 +2,11 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.EmployeeApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.EmployeeDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.EmployeeDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.EmployeeService;
+import ru.anykeyers.productionplannerstorage.domain.employee.EmployeeDto;
+import ru.anykeyers.productionplannerstorage.domain.employee.EmployeeDetails;
+import ru.anykeyers.productionplannerstorage.domain.employee.EmployeeService;
 
 import java.util.List;
 
@@ -32,14 +31,12 @@ class EmployeeController implements EmployeeApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public EmployeeDto createEmployee(@RequestBody @Valid EmployeeDetails employeeDetails) {
         return employeeService.createEmployee(employeeDetails);
     }
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public EmployeeDto updateEmployee( @PathVariable Long id, @RequestBody @Valid EmployeeDetails employeeDetails) {
         return employeeService.updateEmployee(id, employeeDetails);
     }

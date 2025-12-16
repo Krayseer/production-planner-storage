@@ -2,12 +2,11 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.WorkScheduleApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.WorkScheduleDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.WorkScheduleDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.WorkScheduleService;
+import ru.anykeyers.productionplannerstorage.domain.workshedule.WorkScheduleDto;
+import ru.anykeyers.productionplannerstorage.domain.workshedule.WorkScheduleDetails;
+import ru.anykeyers.productionplannerstorage.domain.workshedule.WorkScheduleService;
 
 import java.util.List;
 
@@ -26,14 +25,12 @@ class WorkScheduleController implements WorkScheduleApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public WorkScheduleDto createWorkSchedule(@RequestBody @Valid WorkScheduleDetails workScheduleDetails) {
         return workScheduleService.createWorkSchedule(workScheduleDetails);
     }
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public WorkScheduleDto updateWorkSchedule(@PathVariable Long id,
                                               @RequestBody @Valid WorkScheduleDetails workScheduleDetails) {
         return workScheduleService.updateWorkSchedule(id, workScheduleDetails);

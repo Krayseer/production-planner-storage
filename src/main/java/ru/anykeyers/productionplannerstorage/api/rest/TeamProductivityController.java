@@ -2,12 +2,11 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.TeamProductivityApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.TeamProductivityDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.TeamProductivityDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.TeamProductivityService;
+import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivityDto;
+import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivityDetails;
+import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivityService;
 
 import java.util.List;
 
@@ -38,14 +37,12 @@ class TeamProductivityController implements TeamProductivityApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public TeamProductivityDto createTeamProductivity(@RequestBody @Valid TeamProductivityDetails teamProductivityDetails) {
         return teamProductivityService.createTeamProductivity(teamProductivityDetails);
     }
 
     @Override
     @PutMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public TeamProductivityDto updateTeamProductivity(@PathVariable Long id,
                                                       @RequestBody @Valid TeamProductivityDetails teamProductivityDetails) {
         return teamProductivityService.updateTeamProductivity(id, teamProductivityDetails);

@@ -2,12 +2,11 @@ package ru.anykeyers.productionplannerstorage.api.rest;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.ProductApi;
-import ru.anykeyers.productionplannerstorage.domain.dto.ProductDto;
-import ru.anykeyers.productionplannerstorage.domain.dto.request.ProductDetails;
-import ru.anykeyers.productionplannerstorage.domain.service.ProductService;
+import ru.anykeyers.productionplannerstorage.domain.product.ProductDto;
+import ru.anykeyers.productionplannerstorage.domain.product.ProductDetails;
+import ru.anykeyers.productionplannerstorage.domain.product.ProductService;
 
 import java.util.List;
 
@@ -32,7 +31,6 @@ class ProductController implements ProductApi {
 
     @Override
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
     public ProductDto createProduct(@RequestBody @Valid ProductDetails productDetails) {
         return productService.createProduct(productDetails);
     }
