@@ -4,10 +4,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.anykeyers.productionplannerstorage.api.OptimizationApi;
-import ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationRunDto;
-import ru.anykeyers.productionplannerstorage.domain.optimization.optimizer.OptimizerRequest;
-import ru.anykeyers.productionplannerstorage.domain.optimization.optimizer.OptimizerResult;
-import ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationRunDetails;
+import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResultDto;
+import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResultMapper;
+import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRunDto;
+import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRunDetails;
 import ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationService;
 
 import java.util.List;
@@ -31,9 +31,9 @@ class OptimizationController implements OptimizationApi {
         return optimizationService.createOptimizationRun(optimizationRunDetails);
     }
 
-    @PostMapping("/optimize")
-    public OptimizerResult optimize(@RequestBody OptimizerRequest optimizerRequest) {
-        return optimizationService.optimize(optimizerRequest);
+    @PostMapping("/optimize/{optimizationRunId}")
+    public List<OptimizationResultDto> optimize(@PathVariable Long optimizationRunId) {
+        return optimizationService.optimize(optimizationRunId);
     }
 
     @Override

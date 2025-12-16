@@ -4,8 +4,6 @@
                  xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm
                                      https://jakarta.ee/xml/ns/persistence/orm_3_1.xsd"
                  version="3.1">
-    <package>ru.anykeyers.productionplannerstorage.domain.model</package>
-
     <entity class="ru.anykeyers.productionplannerstorage.domain.product.Product" name="Product">
         <table name="PRODUCTS"/>
         <attributes>
@@ -246,7 +244,7 @@
         </attributes>
     </entity>
 
-    <entity class="ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationRun">
+    <entity class="ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRun">
         <table name="OPTIMIZATION_RUNS"/>
         <attributes>
             <id name="id">
@@ -286,7 +284,7 @@
         </attributes>
     </entity>
 
-    <entity class="ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationResult">
+    <entity class="ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResult">
         <table name="OPTIMIZATION_RESULTS"/>
         <attributes>
             <id name="id">

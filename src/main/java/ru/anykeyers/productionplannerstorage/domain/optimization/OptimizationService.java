@@ -6,8 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.anykeyers.productionplannerstorage.domain.DtoMapper;
 import ru.anykeyers.productionplannerstorage.domain.optimization.optimizer.Optimizer;
-import ru.anykeyers.productionplannerstorage.domain.optimization.optimizer.OptimizerRequest;
-import ru.anykeyers.productionplannerstorage.domain.optimization.optimizer.OptimizerResult;
+import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResult;
+import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResultDto;
+import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResultRepository;
+import ru.anykeyers.productionplannerstorage.domain.optimization.run.*;
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSession;
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionNotFoundException;
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionRepository;
@@ -24,15 +26,20 @@ import java.util.List;
 public class OptimizationService {
 
     private final Optimizer optimizer;
+
+    private final OptimizationRunRepository optimizationRunRepository;
     private final ProductionSessionRepository productionSessionRepository;
-    private final OptimizationParameterRepository optimizationParameterRepository;
-    private final DtoMapper<OptimizationRun, OptimizationRunDto> optimizationParameterMapper;
+    private final OptimizationResultRepository optimizationResultRepository;
+
+    private final DtoMapper<OptimizationRun, OptimizationRunDto> optimizationRunMapper;
+    private final DtoMapper<OptimizationResult, OptimizationResultDto> optimizationResultMapper;
 
     /**
      * @return список активных параметров
      */
+    @Transactional(readOnly = true)
     public List<OptimizationRunDto> getActiveOptimizationParameters() {
-        return optimizationParameterMapper.toDto(optimizationParameterRepository.findAllByActiveIsTrue());
+        return optimizationRunMapper.toDto(optimizationRunRepository.findAll());
     }
 
     /**
@@ -40,19 +47,25 @@ public class OptimizationService {
      *
      * @param optimizationRunDetails данные о параметре оптимизации
      */
+    @Transactional
     public OptimizationRunDto createOptimizationRun(OptimizationRunDetails optimizationRunDetails) {
         OptimizationRun optimizationRun = new OptimizationRun();
         setDetailsToEntity(optimizationRun, optimizationRunDetails);
-        OptimizationRun savedOptimizationRun = optimizationParameterRepository.save(optimizationRun);
+        OptimizationRun savedOptimizationRun = optimizationRunRepository.save(optimizationRun);
         log.info("Created optimization parameter: {}", savedOptimizationRun);
-        return optimizationParameterMapper.toDto(savedOptimizationRun);
+        return optimizationRunMapper.toDto(savedOptimizationRun);
     }
 
     /**
      * Запустить оптимизатор
      */
-    public OptimizerResult optimize(OptimizerRequest optimizerRequest) {
-        OptimizerResult optimizerResult = optimizer.optimize(optimizerRequest);
+    @Transactional
+    public List<OptimizationResultDto> optimize(Long optimizationRunId) {
+        OptimizationRun optimizationRun = getOptimizationRun(optimizationRunId);
+        List<OptimizationResult> optimizationResults = optimizer.optimize(optimizationRun);
+        optimizationResultRepository.saveAll(optimizationResults);
+        log.info("Save optimization result: {}", optimizationResults);
+        return optimizationResultMapper.toDto(optimizationResults);
     }
 
     /**
@@ -61,14 +74,14 @@ public class OptimizationService {
      * @param optimizationParameterId       идентификатор параметра оптимизации
      * @param optimizationRunDetails  обновленные данные о параметре оптимизации
      */
+    @Transactional
     public OptimizationRunDto updateOptimizationParameter(Long optimizationParameterId, OptimizationRunDetails optimizationRunDetails)
-            throws OptimizationParameterNotFoundException {
-        OptimizationRun optimizationRun = optimizationParameterRepository.findById(optimizationParameterId)
-                .orElseThrow(() -> new OptimizationParameterNotFoundException(optimizationParameterId));
+            throws OptimizationRunNotFoundException {
+        OptimizationRun optimizationRun = getOptimizationRun(optimizationParameterId);
         setDetailsToEntity(optimizationRun, optimizationRunDetails);
-        OptimizationRun savedOptimizationRun = optimizationParameterRepository.save(optimizationRun);
+        OptimizationRun savedOptimizationRun = optimizationRunRepository.save(optimizationRun);
         log.info("Updated optimization parameter: {}", savedOptimizationRun);
-        return optimizationParameterMapper.toDto(savedOptimizationRun);
+        return optimizationRunMapper.toDto(savedOptimizationRun);
     }
 
     private void setDetailsToEntity(OptimizationRun optimizationRun, OptimizationRunDetails optimizationRunDetails) {
@@ -83,6 +96,11 @@ public class OptimizationService {
         optimizationRun.setBeta(optimizationRunDetails.beta());
         optimizationRun.setDeltaBuffer(optimizationRunDetails.deltaBuffer());
         optimizationRun.setComment(optimizationRunDetails.comment());
+    }
+
+    private OptimizationRun getOptimizationRun(Long optimizationRunId) {
+        return optimizationRunRepository.findById(optimizationRunId)
+                .orElseThrow(() -> new OptimizationRunNotFoundException(optimizationRunId));
     }
 
 }

@@ -3,7 +3,7 @@ package ru.anykeyers.productionplannerstorage.domain.team;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.anykeyers.productionplannerstorage.domain.employee.Employee;
-import ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationResult;
+import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResult;
 import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivity;
 
 import java.time.LocalDateTime;

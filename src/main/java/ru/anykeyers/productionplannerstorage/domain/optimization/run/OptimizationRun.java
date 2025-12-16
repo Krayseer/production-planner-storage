@@ -1,10 +1,10 @@
-package ru.anykeyers.productionplannerstorage.domain.optimization;
+package ru.anykeyers.productionplannerstorage.domain.optimization.run;
 
 import lombok.*;
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSession;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 /**
  * <b>Параметр оптимизации</b>
@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class OptimizationRun {
     private Long id;
-    private LocalDateTime runTimestamp;
+    private LocalDate runTimestamp;
     private String modelVersion;
     private BigDecimal kTardyDefault;
     private BigDecimal kUnder;
@@ -26,5 +26,6 @@ public class OptimizationRun {
     private BigDecimal beta;
     private BigDecimal deltaBuffer;
     private String comment;
+    private Double objectiveValue;
     private ProductionSession productionSession;
 }

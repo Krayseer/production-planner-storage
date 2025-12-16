@@ -1,8 +1,9 @@
-package ru.anykeyers.productionplannerstorage.domain.optimization;
+package ru.anykeyers.productionplannerstorage.domain.optimization.result;
 
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import ru.anykeyers.productionplannerstorage.domain.ProductionType;
+import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRun;
 import ru.anykeyers.productionplannerstorage.domain.product.Product;
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSession;
 import ru.anykeyers.productionplannerstorage.domain.team.Team;

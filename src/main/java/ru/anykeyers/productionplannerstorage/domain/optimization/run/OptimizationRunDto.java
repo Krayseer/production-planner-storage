@@ -1,13 +1,13 @@
-package ru.anykeyers.productionplannerstorage.domain.optimization;
+package ru.anykeyers.productionplannerstorage.domain.optimization.run;
 
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionDto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public record OptimizationRunDto(
         Long id,
-        LocalDateTime runTimestamp,
+        LocalDate runTimestamp,
         String modelVersion,
         BigDecimal kTardyDefault,
         BigDecimal kUnder,
