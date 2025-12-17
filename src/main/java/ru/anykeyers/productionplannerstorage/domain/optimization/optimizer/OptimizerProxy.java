@@ -8,8 +8,6 @@ import org.springframework.web.client.RestTemplate;
 import ru.anykeyers.productionplannerstorage.domain.DtoMapper;
 import ru.anykeyers.productionplannerstorage.domain.ProductionType;
 import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResult;
-import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResultMapper;
-import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResultRepository;
 import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRun;
 import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRunDto;
 import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRunRepository;
@@ -39,16 +37,14 @@ class OptimizerProxy implements Optimizer {
     private final RestTemplate restTemplate;
     private final TeamRepository teamRepository;
     private final ProductRepository productRepository;
+    private final SessionOrderRepository sessionOrderRepository;
     private final OptimizationRunRepository optimizationRunRepository;
     private final TeamProductivityRepository teamProductivityRepository;
 
     private final DtoMapper<OptimizationRun, OptimizationRunDto> optimizationRunMapper;
     private final DtoMapper<TeamProductivity, TeamProductivityDto> teamProductivityMapper;
-    private final OptimizationResultRepository optimizationResultRepository;
-    private final SessionOrderRepository sessionOrderRepository;
-    private final OptimizationResultMapper optimizationResultMapper;
 
-    @Value("${OPTIMIZER_SERVICE_PATH}")
+    @Value("${OPTIMIZER_SERVICE_PATH:localhost:8000}")
     private String optimizerUrl;
 
     public OptimizerProxy(RestTemplateBuilder restTemplateBuilder,
@@ -58,18 +54,15 @@ class OptimizerProxy implements Optimizer {
                           DtoMapper<OptimizationRun, OptimizationRunDto> optimizationRunMapper,
                           DtoMapper<TeamProductivity, TeamProductivityDto> teamProductivityMapper,
                           ProductRepository productRepository,
-                          OptimizationResultRepository optimizationResultRepository,
-                          SessionOrderRepository sessionOrderRepository, OptimizationResultMapper optimizationResultMapper) {
+                          SessionOrderRepository sessionOrderRepository) {
         this.restTemplate = restTemplateBuilder.build();
         this.teamRepository = teamRepository;
+        this.productRepository = productRepository;
         this.optimizationRunMapper = optimizationRunMapper;
+        this.sessionOrderRepository = sessionOrderRepository;
         this.teamProductivityMapper = teamProductivityMapper;
         this.optimizationRunRepository = optimizationRunRepository;
         this.teamProductivityRepository = teamProductivityRepository;
-        this.productRepository = productRepository;
-        this.optimizationResultRepository = optimizationResultRepository;
-        this.sessionOrderRepository = sessionOrderRepository;
-        this.optimizationResultMapper = optimizationResultMapper;
     }
 
     @Override
@@ -97,7 +90,6 @@ class OptimizerProxy implements Optimizer {
             teamDayPlan.tasks().forEach(task -> {
                 Product product = productRepository.findById(task.productId())
                         .orElseThrow(() -> new ProductNotFoundException(task.productId()));
-
                 OptimizationResult optimizationResult = new OptimizationResult();
                 optimizationResult.setDayIndex(task.dayIndex());
                 optimizationResult.setWorkDate(task.workDate());
@@ -110,7 +102,6 @@ class OptimizerProxy implements Optimizer {
                 optimizationResult.setProduct(product);
                 optimizationResults.add(optimizationResult);
                 log.info("Created optimization result: {}", optimizationResult);
-
                 sessionOrderRepository.findByProduct(product)
                         .ifPresent(sessionOrder -> {
                             sessionOrder.setQuantityFact(sessionOrder.getQuantityFact() - task.plannedQuantity().intValue());

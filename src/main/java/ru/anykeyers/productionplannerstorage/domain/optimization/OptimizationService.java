@@ -64,7 +64,7 @@ public class OptimizationService {
         OptimizationRun optimizationRun = getOptimizationRun(optimizationRunId);
         List<OptimizationResult> optimizationResults = optimizer.optimize(optimizationRun);
         optimizationResultRepository.saveAll(optimizationResults);
-        log.info("Save optimization result: {}", optimizationResults);
+        log.info("Save optimization results: {}", optimizationResults.size());
         return optimizationResultMapper.toDto(optimizationResults);
     }
 

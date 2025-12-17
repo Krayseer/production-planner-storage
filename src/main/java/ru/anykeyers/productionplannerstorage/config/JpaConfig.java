@@ -13,8 +13,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 import javax.sql.DataSource;
 
 @Configuration
-@EnableJpaRepositories
 @EnableTransactionManagement
+@EnableJpaRepositories(basePackages = "ru.anykeyers.productionplannerstorage")
 class JpaConfig {
 
     @Bean
