@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "sessionOrders" })
 public class ProductionSession {
     /**
      * Стандартный статус сессии

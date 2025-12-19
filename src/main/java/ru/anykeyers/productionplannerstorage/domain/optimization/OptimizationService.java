@@ -90,8 +90,9 @@ public class OptimizationService {
         optimizationRun.setProductionSession(productionSession);
         optimizationRun.setRunTimestamp(optimizationRunDetails.runTimestamp());
         optimizationRun.setModelVersion(optimizationRunDetails.modelVersion());
-        optimizationRun.setKTardyDefault(optimizationRunDetails.kTardyDefault());
-        optimizationRun.setKUnder(optimizationRunDetails.kUnder());
+        optimizationRun.setTardyDefaultK(optimizationRunDetails.kTardyDefault());
+        optimizationRun.setUnderK(optimizationRunDetails.kUnder());
+        optimizationRun.setOverK(optimizationRunDetails.kOver());
         optimizationRun.setAlpha(optimizationRunDetails.alpha());
         optimizationRun.setBeta(optimizationRunDetails.beta());
         optimizationRun.setDeltaBuffer(optimizationRunDetails.deltaBuffer());

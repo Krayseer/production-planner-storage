@@ -19,6 +19,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "sessionOrders", "teamProductivityList", "optimizationResults" })
 public class Product {
     /**
      * Стандартный флаг активности изделия

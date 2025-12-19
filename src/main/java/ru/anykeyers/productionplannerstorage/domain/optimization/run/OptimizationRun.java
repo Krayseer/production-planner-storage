@@ -15,17 +15,19 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "productionSession")
 public class OptimizationRun {
     private Long id;
     private LocalDate runTimestamp;
     private String modelVersion;
-    private BigDecimal kTardyDefault;
-    private BigDecimal kUnder;
-    private BigDecimal kOver;
+    private BigDecimal tardyDefaultK;
+    private BigDecimal underK;
+    private BigDecimal overK;
     private BigDecimal alpha;
     private BigDecimal beta;
     private BigDecimal deltaBuffer;
     private String comment;
     private Double objectiveValue;
+
     private ProductionSession productionSession;
 }

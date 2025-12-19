@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "workSchedules")
 public class AbsenceType {
     /**
      * Стандартный флаг активности

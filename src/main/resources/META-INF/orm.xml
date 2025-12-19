@@ -257,13 +257,13 @@
             <basic name="modelVersion">
                 <column name="MODEL_VERSION"/>
             </basic>
-            <basic name="kTardyDefault">
+            <basic name="tardyDefaultK">
                 <column name="K_TARDY_DEFAULT" precision="10" scale="2"/>
             </basic>
-            <basic name="kUnder">
+            <basic name="underK">
                 <column name="K_UNDER" precision="10" scale="2"/>
             </basic>
-            <basic name="kOver">
+            <basic name="overK">
                 <column name="K_OVER" precision="10" scale="2"/>
             </basic>
             <basic name="alpha">

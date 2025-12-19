@@ -18,6 +18,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "team", "workSchedules" })
 public class Employee {
     /**
      * Стандартный флаг активности

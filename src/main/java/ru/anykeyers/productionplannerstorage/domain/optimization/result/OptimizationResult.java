@@ -22,6 +22,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "optimizationRun", "productionSession", "team", "product" })
 public class OptimizationResult {
     private Long id;
     private Integer dayIndex;

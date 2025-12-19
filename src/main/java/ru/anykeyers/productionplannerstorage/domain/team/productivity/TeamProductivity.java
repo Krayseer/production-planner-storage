@@ -19,6 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "team", "product" })
 public class TeamProductivity {
     /**
      * Стандартный флаг активности записи

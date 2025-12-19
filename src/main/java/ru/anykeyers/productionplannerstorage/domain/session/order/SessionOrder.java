@@ -17,6 +17,7 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = { "product", "session" })
 public class SessionOrder {
     /**
      * Уникальный идентификатор плана
