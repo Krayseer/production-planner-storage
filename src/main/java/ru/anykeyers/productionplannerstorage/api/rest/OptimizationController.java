@@ -19,6 +19,11 @@ class OptimizationController implements OptimizationApi {
 
     private final OptimizationService optimizationService;
 
+    @GetMapping("/result")
+    public List<OptimizationResultDto> getOptimizationResults() {
+        return optimizationService.getOptimizationResults();
+    }
+
     @Override
     @GetMapping
     public List<OptimizationRunDto> getActiveOptimizationRuns() {

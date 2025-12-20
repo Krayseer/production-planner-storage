@@ -34,6 +34,11 @@ public class OptimizationService {
     private final DtoMapper<OptimizationRun, OptimizationRunDto> optimizationRunMapper;
     private final DtoMapper<OptimizationResult, OptimizationResultDto> optimizationResultMapper;
 
+    @Transactional
+    public List<OptimizationResultDto> getOptimizationResults() {
+        return optimizationResultMapper.toDto(optimizationResultRepository.findAll());
+    }
+
     /**
      * @return список активных параметров
      */
