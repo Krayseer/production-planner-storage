@@ -11,6 +11,7 @@ import ru.anykeyers.productionplannerstorage.domain.optimization.run.Optimizatio
 import ru.anykeyers.productionplannerstorage.domain.optimization.OptimizationService;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -32,8 +33,8 @@ class OptimizationController implements OptimizationApi {
     }
 
     @PostMapping("/optimize/{optimizationRunId}")
-    public List<OptimizationResultDto> optimize(@PathVariable Long optimizationRunId) {
-        return optimizationService.optimize(optimizationRunId);
+    public List<OptimizationResultDto> optimize(@PathVariable Long optimizationRunId, @RequestBody Map<Long, Integer> absenceCountByTeam) {
+        return optimizationService.optimize(optimizationRunId, absenceCountByTeam);
     }
 
     @Override

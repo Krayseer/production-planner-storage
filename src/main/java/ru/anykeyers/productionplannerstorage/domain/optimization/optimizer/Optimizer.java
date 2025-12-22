@@ -4,6 +4,7 @@ import ru.anykeyers.productionplannerstorage.domain.optimization.result.Optimiza
 import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRun;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Оптимизатор
@@ -13,6 +14,6 @@ public interface Optimizer {
     /**
      * Выполнить оптимизацию
      */
-    List<OptimizationResult> optimize(OptimizationRun optimizationRun);
+    List<OptimizationResult> optimize(OptimizationRun optimizationRun, Map<Long, Integer> absenceCountByTeam);
 
 }

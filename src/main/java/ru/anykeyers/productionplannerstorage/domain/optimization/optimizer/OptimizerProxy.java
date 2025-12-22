@@ -9,38 +9,27 @@ import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.Mapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.web.client.RestTemplateBuilder;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-import ru.anykeyers.productionplannerstorage.config.WebConfig;
 import ru.anykeyers.productionplannerstorage.domain.DtoMapper;
 import ru.anykeyers.productionplannerstorage.domain.ProductionType;
 import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResult;
 import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRun;
-import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRunDto;
 import ru.anykeyers.productionplannerstorage.domain.optimization.run.OptimizationRunRepository;
 import ru.anykeyers.productionplannerstorage.domain.product.Product;
-import ru.anykeyers.productionplannerstorage.domain.product.ProductDto;
 import ru.anykeyers.productionplannerstorage.domain.product.ProductNotFoundException;
 import ru.anykeyers.productionplannerstorage.domain.product.ProductRepository;
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSession;
-import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionDto;
 import ru.anykeyers.productionplannerstorage.domain.session.order.SessionOrder;
 import ru.anykeyers.productionplannerstorage.domain.session.order.SessionOrderRepository;
 import ru.anykeyers.productionplannerstorage.domain.team.Team;
-import ru.anykeyers.productionplannerstorage.domain.team.TeamDto;
 import ru.anykeyers.productionplannerstorage.domain.team.TeamNotFoundException;
 import ru.anykeyers.productionplannerstorage.domain.team.TeamRepository;
 import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivity;
-import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivityDto;
 import ru.anykeyers.productionplannerstorage.domain.team.productivity.TeamProductivityRepository;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,7 +57,7 @@ class OptimizerProxy implements Optimizer {
 
     @Override
     @SneakyThrows
-    public List<OptimizationResult> optimize(OptimizationRun optimizationRun) {
+    public List<OptimizationResult> optimize(OptimizationRun optimizationRun, Map<Long, Integer> absenceCountByTeam) {
         LocalDate startDate = optimizationRun.getRunTimestamp();
         ProductionSession productionSession = optimizationRun.getProductionSession();
         long numDays = ChronoUnit.DAYS.between(startDate, productionSession.getEndDate());
@@ -77,9 +66,10 @@ class OptimizerProxy implements Optimizer {
                 startDate.toString(),
                 numDays,
                 optimizationRun.getProductionSession().getSessionOrders().stream().map(this::toOrderRequest).toList(),
-                toDto(teamProductivityRepository.findAll()),
+                toDto(teamProductivityRepository.findAll(), absenceCountByTeam),
                 proxyMapper.toDto(optimizationRun)
         );
+        log.info("Optimizer request: {}", request);
         String path = optimizerUrl + "/api/v1/optimize/" + optimizationRun.getModelVersion();
         OptimizerResponse optimizerResponse = restTemplate.postForObject(path, request, OptimizerResponse.class);
         if (optimizerResponse == null) {
@@ -122,14 +112,21 @@ class OptimizerProxy implements Optimizer {
         return optimizationResults;
     }
 
-    private List<TeamProductivityForProxy> toDto(List<TeamProductivity> teamProductivityList) {
+    private List<TeamProductivityForProxy> toDto(List<TeamProductivity> teamProductivityList, Map<Long, Integer> absenceCountByTeam) {
         return teamProductivityList.stream()
-                .map(t -> new TeamProductivityForProxy(
-                        t.getTeam().getId(),
-                        t.getProduct().getId(),
-                        t.getProductionType().name().toLowerCase(),
-                        t.getProductivity()
-                )).toList();
+                .map(t -> {
+                    Team team = t.getTeam();
+                    double employeeCount = team.getEmployees().size();
+                    double absenceCount = absenceCountByTeam.getOrDefault(team.getId(), 0);
+                    BigDecimal productivity = absenceCount == 0
+                            ? t.getProductivity()
+                            : t.getProductivity().multiply(new BigDecimal(employeeCount - (absenceCount/employeeCount)));
+                    return new TeamProductivityForProxy(
+                            t.getTeam().getId(),
+                            t.getProduct().getId(),
+                            t.getProductionType().name().toLowerCase(),
+                            productivity);
+                }).toList();
     }
 
     private OptimizerRequest.Order toOrderRequest(SessionOrder order) {

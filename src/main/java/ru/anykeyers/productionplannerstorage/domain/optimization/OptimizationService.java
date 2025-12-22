@@ -15,6 +15,7 @@ import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionNot
 import ru.anykeyers.productionplannerstorage.domain.session.ProductionSessionRepository;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * Сервис параметров производительности
@@ -60,9 +61,9 @@ public class OptimizationService {
      * Запустить оптимизатор
      */
     @Transactional
-    public List<OptimizationResultDto> optimize(Long optimizationRunId) {
+    public List<OptimizationResultDto> optimize(Long optimizationRunId, Map<Long, Integer> absenceCountByTeam) {
         OptimizationRun optimizationRun = getOptimizationRun(optimizationRunId);
-        List<OptimizationResult> optimizationResults = optimizer.optimize(optimizationRun);
+        List<OptimizationResult> optimizationResults = optimizer.optimize(optimizationRun, absenceCountByTeam);
         optimizationResultRepository.saveAll(optimizationResults);
         log.info("Save optimization results: {}", optimizationResults.size());
         return optimizationResultMapper.toDto(optimizationResults);
