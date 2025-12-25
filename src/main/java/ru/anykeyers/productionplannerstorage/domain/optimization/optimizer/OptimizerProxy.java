@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import ru.anykeyers.productionplannerstorage.config.WebConfig;
 import ru.anykeyers.productionplannerstorage.domain.DtoMapper;
 import ru.anykeyers.productionplannerstorage.domain.ProductionType;
 import ru.anykeyers.productionplannerstorage.domain.optimization.result.OptimizationResult;
@@ -70,6 +71,7 @@ class OptimizerProxy implements Optimizer {
                 proxyMapper.toDto(optimizationRun)
         );
         log.info("Optimizer request: {}", request);
+        log.info("Optimizer request as JSON: {}", WebConfig.createObjectMapper().writeValueAsString(request));
         String path = optimizerUrl + "/api/v1/optimize/" + optimizationRun.getModelVersion();
         OptimizerResponse optimizerResponse = restTemplate.postForObject(path, request, OptimizerResponse.class);
         if (optimizerResponse == null) {

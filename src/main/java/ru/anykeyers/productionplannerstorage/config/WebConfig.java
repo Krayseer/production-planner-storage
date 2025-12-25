@@ -20,7 +20,7 @@ public class WebConfig {
         return restTemplate;
     }
 
-    private ObjectMapper createObjectMapper() {
+    public static ObjectMapper createObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE);
         objectMapper.findAndRegisterModules();
