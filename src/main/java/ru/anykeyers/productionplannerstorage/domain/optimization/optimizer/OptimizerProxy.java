@@ -100,7 +100,7 @@ class OptimizerProxy implements Optimizer {
                 optimizationResult.setProduct(product);
                 optimizationResults.add(optimizationResult);
                 log.info("Created optimization result: {}", optimizationResult);
-                sessionOrderRepository.findByProduct(product)
+                sessionOrderRepository.findByProductAndSession(product, productionSession)
                         .ifPresent(sessionOrder -> {
                             int quantity = sessionOrder.getQuantityFact() == null ? sessionOrder.getQuantity() : sessionOrder.getQuantityFact();
                             sessionOrder.setQuantityFact(quantity - task.plannedQuantity().intValue());
